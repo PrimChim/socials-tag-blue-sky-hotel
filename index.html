@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blue Sky Hotel – Syange, Lamjung</title>
+  <meta name="description" content="Blue Sky Hotel – A Best Place To Stay in Syange, Lamjung, Nepal. Book your room, explore our restaurant, and connect with us." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Blue Sky Hotel" />
+  <meta property="og:description" content="A Best Place To Stay – Syange, Lamjung, Nepal" />
+  <meta property="og:image" content="https://blueskyhotel.com.np/images/blue-sky/hotel.jpg" />
+  <meta property="og:url" content="https://socials.blueskyhotel.com.np" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --sky:    #4a9eca;
+      --sky-lt: #7ec8e3;
+      --sky-dk: #1a6a9a;
+      --gold:   #c8a96e;
+      --cream:  #f7f3ee;
+      --dark:   #1c2a35;
+      --mid:    #4a5c68;
+      --card-bg: rgba(255,255,255,0.72);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100dvh;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 48px;
+      overflow-x: hidden;
+    }
+
+    /* ── Sky gradient backdrop ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 120% 60% at 50% -10%, #b8dff0 0%, transparent 65%),
+        radial-gradient(ellipse 80% 40% at 80% 110%, #d4eecc 0%, transparent 60%),
+        linear-gradient(160deg, #e8f4fb 0%, #f7f3ee 55%, #eef5e8 100%);
+      z-index: -2;
+    }
+
+    /* ── Mountain silhouette ── */
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 220px;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 220' preserveAspectRatio='none'%3E%3Cpolygon points='0,220 0,140 120,60 220,110 340,30 480,110 560,55 680,120 800,40 920,100 1040,20 1140,90 1200,60 1200,220' fill='%232d4a3e' opacity='0.08'/%3E%3Cpolygon points='0,220 0,165 80,110 180,140 280,80 400,145 500,90 620,150 720,70 860,140 980,85 1100,130 1200,95 1200,220' fill='%232d4a3e' opacity='0.06'/%3E%3C/svg%3E") bottom/cover no-repeat;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* ── Card ── */
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow:
+        0 4px 24px rgba(26,106,154,0.10),
+        0 1px 2px rgba(255,255,255,0.8) inset;
+      overflow: hidden;
+      animation: rise .7s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes rise {
+      from { opacity:0; transform: translateY(28px) scale(.97); }
+      to   { opacity:1; transform: translateY(0)   scale(1); }
+    }
+
+    /* ── Hero image strip ── */
+    .hero {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(.95) saturate(1.1);
+    }
+
+    /* ── Logo bubble ── */
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: -42px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-bubble {
+      width: 84px; height: 84px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid white;
+      box-shadow: 0 4px 20px rgba(26,106,154,.22);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .logo-bubble img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── Identity ── */
+    .identity {
+      text-align: center;
+      padding: 14px 24px 4px;
+    }
+
+    .identity h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--dark);
+      letter-spacing: .01em;
+      line-height: 1.1;
+    }
+
+    .identity .tagline {
+      font-size: .8rem;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── Gold divider ── */
+    .divider {
+      width: 48px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 14px auto;
+      border-radius: 2px;
+    }
+
+    /* ── Info pills ── */
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0 24px;
+    }
+
+    .info-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .82rem;
+      color: var(--mid);
+    }
+
+    .info-pill .icon {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--sky-lt), var(--sky));
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .info-pill .icon svg { width:14px; height:14px; fill:white; }
+
+    /* ── Links grid ── */
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px 24px;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--dark);
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 2px 8px rgba(26,106,154,.07);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.4), transparent);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .link-btn:hover, .link-btn:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(26,106,154,.14);
+      background: rgba(255,255,255,.92);
+    }
+
+    .link-btn:hover::before { opacity: 1; }
+    .link-btn:active { transform: scale(.98); }
+
+    .btn-icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .btn-icon img, .btn-icon svg { width: 22px; height: 22px; }
+
+    .btn-text { flex: 1; }
+    .btn-text span { display: block; }
+    .btn-text .sub { font-size: .72rem; font-weight: 300; color: var(--mid); margin-top: 1px; }
+
+    .btn-arrow {
+      color: var(--mid);
+      opacity: .5;
+      font-size: 1rem;
+    }
+
+    /* Button color themes */
+    .btn-website  .btn-icon { background: linear-gradient(135deg, #4a9eca, #1a6a9a); }
+    .btn-whatsapp .btn-icon { background: linear-gradient(135deg, #25d366, #128c3a); }
+    .btn-facebook .btn-icon { background: linear-gradient(135deg, #1877f2, #0d4fa8); }
+    .btn-maps     .btn-icon { background: linear-gradient(135deg, #ea4335, #c5221f); }
+    .btn-phone    .btn-icon { background: linear-gradient(135deg, #6c63ff, #3b35c3); }
+    .btn-email    .btn-icon { background: linear-gradient(135deg, #c8a96e, #8c6d3a); }
+    .btn-reserve  .btn-icon { background: linear-gradient(135deg, #2ecc71, #0f9b4a); }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 8px 24px 24px;
+      font-size: .7rem;
+      color: var(--mid);
+      opacity: .7;
+      letter-spacing: .04em;
+    }
+
+    /* ── Animate buttons staggered ── */
+    .link-btn:nth-child(1) { animation: rise .6s .10s both; }
+    .link-btn:nth-child(2) { animation: rise .6s .17s both; }
+    .link-btn:nth-child(3) { animation: rise .6s .24s both; }
+    .link-btn:nth-child(4) { animation: rise .6s .31s both; }
+    .link-btn:nth-child(5) { animation: rise .6s .38s both; }
+    .link-btn:nth-child(6) { animation: rise .6s .45s both; }
+    .link-btn:nth-child(7) { animation: rise .6s .52s both; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Hero photo -->
+  <img class="hero"
+       src="https://blueskyhotel.com.np/images/blue-sky/hotel.jpg"
+       alt="Blue Sky Hotel exterior"
+       loading="eager" />
+
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <div class="logo-bubble">
+      <!-- Sky icon placeholder – replace with actual logo if available -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" style="width:100%;height:100%;background:linear-gradient(160deg,#4a9eca,#1a6a9a)">
+        <text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle"
+              font-family="serif" font-size="32" fill="white">🏨</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Identity -->
+  <div class="identity">
+    <h1>Blue Sky Hotel</h1>
+    <p class="tagline">A Best Place To Stay</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Address / phone chips -->
+  <div class="info">
+    <div class="info-pill">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
+        </svg>
+      </span>
+      Besisahar-Chame Sadak, Syange, Lamjung
+    </div>
+    <div class="info-pill">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
+        </svg>
+      </span>
+      (+977) 9856045222
+    </div>
+  </div>
+
+  <!-- Links -->
+  <div class="links">
+
+    <a class="link-btn btn-website" href="https://blueskyhotel.com.np" target="_blank" rel="noopener">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+        </svg>
+      </span>
+      <span class="btn-text">
+        <span>Our Website</span>
+        <span class="sub">blueskyhotel.com.np</span>
+      </span>
+      <span class="btn-arrow">›</span>
+    </a>
+
+    <a class="link-btn btn-reserve" href="https://blueskyhotel.com.np/reservation.html" target="_blank" rel="noopener">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+        </svg>
+      </span>
+      <span class="btn-text">
+        <span>Book a Room</span>
+        <span class="sub">Reservation form</span>
+      </span>
+      <span class="btn-arrow">›</span>
+    </a>
+
+    <a class="link-btn btn-whatsapp" href="https://wa.me/9779856045222" target="_blank" rel="noopener">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+      </span>
+      <span class="btn-text">
+        <span>WhatsApp Us</span>
+        <span class="sub">Quick enquiry</span>
+      </span>
+      <span class="btn-arrow">›</span>
+    </a>
+
+    <a class="link-btn btn-facebook" href="https://www.facebook.com/blueskyhotel.np" target="_blank" rel="noopener">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      </span>
+      <span class="btn-text">
+        <span>Facebook</span>
+        <span class="sub">Follow us for updates</span>
+      </span>
+      <span class="btn-arrow">›</span>
+    </a>
+
+    <a class="link-btn btn-maps" href="https://www.google.com/maps/search/?api=1&query=Blue+Sky+Hotel+Syange+Lamjung" target="_blank" rel="noopener">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
+        </svg>
+      </span>
+      <span class="btn-text">
+        <span>Find Us on Map</span>
+        <span class="sub">Syange, Lamjung</span>
+      </span>
+      <span class="btn-arrow">›</span>
+    </a>
+
+    <a class="link-btn btn-phone" href="tel:+9779856045222">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
+        </svg>
+      </span>
+      <span class="btn-text">
+        <span>Call Us</span>
+        <span class="sub">(+977) 9856045222</span>
+      </span>
+      <span class="btn-arrow">›</span>
+    </a>
+
+    <a class="link-btn btn-email" href="mailto:info@blueskyhotel.com.np">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </span>
+      <span class="btn-text">
+        <span>Email Us</span>
+        <span class="sub">info@blueskyhotel.com.np</span>
+      </span>
+      <span class="btn-arrow">›</span>
+    </a>
+
+  </div>
+
+  <div class="footer">© 2024 Blue Sky Hotel · Syange, Lamjung, Nepal</div>
+</div>
+
+</body>
+</html>
