@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blue Sky Hotel – Syange, Lamjung</title>
-  <meta name="description" content="Blue Sky Hotel – A Best Place To Stay in Syange, Lamjung, Nepal. Book your room, explore our restaurant, and connect with us." />
+  <meta name="description" content="Blue Sky Hotel – A Best Place To Stay in Syange, Lamjung, Nepal." />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Blue Sky Hotel" />
@@ -18,13 +18,13 @@
 
   <style>
     :root {
-      --sky:    #4a9eca;
-      --sky-lt: #7ec8e3;
-      --sky-dk: #1a6a9a;
-      --gold:   #c8a96e;
-      --cream:  #f7f3ee;
-      --dark:   #1c2a35;
-      --mid:    #4a5c68;
+      --sky:     #4a9eca;
+      --sky-lt:  #7ec8e3;
+      --sky-dk:  #1a6a9a;
+      --gold:    #c8a96e;
+      --cream:   #f7f3ee;
+      --dark:    #1c2a35;
+      --mid:     #4a5c68;
       --card-bg: rgba(255,255,255,0.72);
     }
 
@@ -41,11 +41,9 @@
       overflow-x: hidden;
     }
 
-    /* ── Sky gradient backdrop ── */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background:
         radial-gradient(ellipse 120% 60% at 50% -10%, #b8dff0 0%, transparent 65%),
         radial-gradient(ellipse 80% 40% at 80% 110%, #d4eecc 0%, transparent 60%),
@@ -53,237 +51,217 @@
       z-index: -2;
     }
 
-    /* ── Mountain silhouette ── */
     body::after {
       content: '';
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      height: 220px;
+      position: fixed; bottom: 0; left: 0; right: 0; height: 220px;
       background:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 220' preserveAspectRatio='none'%3E%3Cpolygon points='0,220 0,140 120,60 220,110 340,30 480,110 560,55 680,120 800,40 920,100 1040,20 1140,90 1200,60 1200,220' fill='%232d4a3e' opacity='0.08'/%3E%3Cpolygon points='0,220 0,165 80,110 180,140 280,80 400,145 500,90 620,150 720,70 860,140 980,85 1100,130 1200,95 1200,220' fill='%232d4a3e' opacity='0.06'/%3E%3C/svg%3E") bottom/cover no-repeat;
-      z-index: -1;
-      pointer-events: none;
+      z-index: -1; pointer-events: none;
     }
 
     /* ── Card ── */
     .card {
-      width: 100%;
-      max-width: 420px;
+      width: 100%; max-width: 420px;
       background: var(--card-bg);
       backdrop-filter: blur(18px) saturate(1.4);
       -webkit-backdrop-filter: blur(18px) saturate(1.4);
       border-radius: 28px;
       border: 1px solid rgba(255,255,255,0.6);
-      box-shadow:
-        0 4px 24px rgba(26,106,154,0.10),
-        0 1px 2px rgba(255,255,255,0.8) inset;
+      box-shadow: 0 4px 24px rgba(26,106,154,0.10), 0 1px 2px rgba(255,255,255,0.8) inset;
       overflow: hidden;
       animation: rise .7s cubic-bezier(.22,1,.36,1) both;
     }
 
     @keyframes rise {
       from { opacity:0; transform: translateY(28px) scale(.97); }
-      to   { opacity:1; transform: translateY(0)   scale(1); }
+      to   { opacity:1; transform: translateY(0) scale(1); }
     }
 
-    /* ── Hero image strip ── */
-    .hero {
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-      display: block;
-      filter: brightness(.95) saturate(1.1);
+    /* ── Hero ── */
+    .hero-wrap { position: relative; }
+    .hero { width: 100%; height: 190px; object-fit: cover; display: block; filter: brightness(.95) saturate(1.1); }
+
+    /* ── Share button ── */
+    .share-btn {
+      position: absolute; top: 12px; right: 12px;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,.18);
+      transition: transform .18s, box-shadow .18s;
+      z-index: 5;
     }
+    .share-btn:hover { transform: scale(1.1); box-shadow: 0 4px 16px rgba(0,0,0,.22); }
+    .share-btn svg { width: 18px; height: 18px; fill: var(--sky-dk); }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--dark); color: #fff;
+      font-size: .78rem; padding: 8px 18px;
+      border-radius: 24px; opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s, transform .3s;
+      z-index: 999; white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     /* ── Logo bubble ── */
     .logo-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: -42px;
-      position: relative;
-      z-index: 2;
+      display: flex; justify-content: center;
+      margin-top: -42px; position: relative; z-index: 2;
     }
-
     .logo-bubble {
-      width: 84px; height: 84px;
-      border-radius: 50%;
-      background: white;
-      border: 3px solid white;
+      width: 84px; height: 84px; border-radius: 50%;
+      background: white; border: 3px solid white;
       box-shadow: 0 4px 20px rgba(26,106,154,.22);
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    .logo-bubble img {
-      width: 100%; height: 100%;
-      object-fit: cover;
+      overflow: hidden; display: flex; align-items: center; justify-content: center;
     }
 
     /* ── Identity ── */
-    .identity {
-      text-align: center;
-      padding: 14px 24px 4px;
-    }
-
+    .identity { text-align: center; padding: 14px 24px 4px; }
     .identity h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--dark);
-      letter-spacing: .01em;
-      line-height: 1.1;
+      font-size: 2rem; font-weight: 600;
+      color: var(--dark); letter-spacing: .01em; line-height: 1.1;
     }
-
     .identity .tagline {
-      font-size: .8rem;
-      font-weight: 300;
-      color: var(--mid);
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      margin-top: 4px;
+      font-size: .8rem; font-weight: 300; color: var(--mid);
+      letter-spacing: .12em; text-transform: uppercase; margin-top: 4px;
     }
 
-    /* ── Gold divider ── */
     .divider {
       width: 48px; height: 2px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 14px auto;
-      border-radius: 2px;
+      margin: 14px auto; border-radius: 2px;
     }
 
     /* ── Info pills ── */
-    .info {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding: 0 24px;
-    }
-
-    .info-pill {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: .82rem;
-      color: var(--mid);
-    }
-
+    .info { display: flex; flex-direction: column; gap: 8px; padding: 0 24px; }
+    .info-pill { display: flex; align-items: center; gap: 10px; font-size: .82rem; color: var(--mid); }
+    .info-pill a { color: var(--mid); text-decoration: none; transition: color .15s; }
+    .info-pill a:hover { color: var(--sky-dk); text-decoration: underline; }
     .info-pill .icon {
-      width: 28px; height: 28px;
-      border-radius: 8px;
+      width: 28px; height: 28px; border-radius: 8px;
       background: linear-gradient(135deg, var(--sky-lt), var(--sky));
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
+    .info-pill .icon svg { width: 14px; height: 14px; fill: white; }
 
-    .info-pill .icon svg { width:14px; height:14px; fill:white; }
-
-    /* ── Links grid ── */
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 20px 24px;
+    /* ── Google Review block ── */
+    .review-block {
+      margin: 18px 24px 0;
+      background: rgba(255,255,255,0.82);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.95);
+      padding: 16px 18px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      box-shadow: 0 2px 10px rgba(26,106,154,.07);
+      animation: rise .6s .05s both;
     }
+    .stars { display: flex; gap: 3px; }
+    .stars svg { width: 22px; height: 22px; fill: #fbbc04; }
+
+    .google-review-btn {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 20px; border-radius: 24px;
+      text-decoration: none; font-size: .84rem; font-weight: 500;
+      color: #3c4043;
+      background: #fff;
+      border: 1.5px solid #dadce0;
+      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+      transition: box-shadow .18s, transform .18s;
+    }
+    .google-review-btn:hover { box-shadow: 0 3px 12px rgba(0,0,0,.14); transform: translateY(-1px); }
+    .google-g { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* ── Link buttons ── */
+    .links { display: flex; flex-direction: column; gap: 10px; padding: 16px 24px 20px; }
 
     .link-btn {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 18px;
-      border-radius: 16px;
-      text-decoration: none;
-      font-size: .88rem;
-      font-weight: 500;
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; border-radius: 16px;
+      text-decoration: none; font-size: .88rem; font-weight: 500;
       color: var(--dark);
       background: rgba(255,255,255,0.75);
       border: 1px solid rgba(255,255,255,0.9);
       box-shadow: 0 2px 8px rgba(26,106,154,.07);
-      transition: transform .18s ease, box-shadow .18s ease, background .18s;
-      position: relative;
-      overflow: hidden;
+      transition: transform .18s, box-shadow .18s, background .18s;
+      position: relative; overflow: hidden;
     }
-
     .link-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: linear-gradient(135deg, rgba(255,255,255,.4), transparent);
-      opacity: 0;
-      transition: opacity .2s;
+      opacity: 0; transition: opacity .2s;
     }
-
     .link-btn:hover, .link-btn:focus-visible {
       transform: translateY(-2px);
       box-shadow: 0 6px 18px rgba(26,106,154,.14);
       background: rgba(255,255,255,.92);
     }
-
     .link-btn:hover::before { opacity: 1; }
     .link-btn:active { transform: scale(.98); }
 
     .btn-icon {
-      width: 40px; height: 40px;
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      width: 40px; height: 40px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-
-    .btn-icon img, .btn-icon svg { width: 22px; height: 22px; }
-
+    .btn-icon svg { width: 22px; height: 22px; }
     .btn-text { flex: 1; }
     .btn-text span { display: block; }
     .btn-text .sub { font-size: .72rem; font-weight: 300; color: var(--mid); margin-top: 1px; }
+    .btn-arrow { color: var(--mid); opacity: .5; font-size: 1rem; }
 
-    .btn-arrow {
-      color: var(--mid);
-      opacity: .5;
-      font-size: 1rem;
-    }
-
-    /* Button color themes */
     .btn-website  .btn-icon { background: linear-gradient(135deg, #4a9eca, #1a6a9a); }
+    .btn-reserve  .btn-icon { background: linear-gradient(135deg, #2ecc71, #0f9b4a); }
     .btn-whatsapp .btn-icon { background: linear-gradient(135deg, #25d366, #128c3a); }
     .btn-facebook .btn-icon { background: linear-gradient(135deg, #1877f2, #0d4fa8); }
-    .btn-maps     .btn-icon { background: linear-gradient(135deg, #ea4335, #c5221f); }
-    .btn-phone    .btn-icon { background: linear-gradient(135deg, #6c63ff, #3b35c3); }
     .btn-email    .btn-icon { background: linear-gradient(135deg, #c8a96e, #8c6d3a); }
-    .btn-reserve  .btn-icon { background: linear-gradient(135deg, #2ecc71, #0f9b4a); }
+    /* Maps: white bg so the coloured logo shows properly */
+    .btn-maps .btn-icon { background: #fff; border: 1px solid #e8e8e8; }
+
+    /* staggered animations */
+    .link-btn:nth-child(1) { animation: rise .6s .12s both; }
+    .link-btn:nth-child(2) { animation: rise .6s .19s both; }
+    .link-btn:nth-child(3) { animation: rise .6s .26s both; }
+    .link-btn:nth-child(4) { animation: rise .6s .33s both; }
+    .link-btn:nth-child(5) { animation: rise .6s .40s both; }
+    .link-btn:nth-child(6) { animation: rise .6s .47s both; }
 
     /* ── Footer ── */
     .footer {
-      text-align: center;
-      padding: 8px 24px 24px;
-      font-size: .7rem;
-      color: var(--mid);
-      opacity: .7;
-      letter-spacing: .04em;
+      text-align: center; padding: 8px 24px 24px;
+      font-size: .7rem; color: var(--mid); opacity: .7; letter-spacing: .04em;
     }
-
-    /* ── Animate buttons staggered ── */
-    .link-btn:nth-child(1) { animation: rise .6s .10s both; }
-    .link-btn:nth-child(2) { animation: rise .6s .17s both; }
-    .link-btn:nth-child(3) { animation: rise .6s .24s both; }
-    .link-btn:nth-child(4) { animation: rise .6s .31s both; }
-    .link-btn:nth-child(5) { animation: rise .6s .38s both; }
-    .link-btn:nth-child(6) { animation: rise .6s .45s both; }
-    .link-btn:nth-child(7) { animation: rise .6s .52s both; }
   </style>
 </head>
 <body>
 
+<div class="toast" id="toast"></div>
+
 <div class="card">
 
-  <!-- Hero photo -->
-  <img class="hero"
-       src="https://blueskyhotel.com.np/images/blue-sky/hotel.jpg"
-       alt="Blue Sky Hotel exterior"
-       loading="eager" />
+  <!-- Hero + share -->
+  <div class="hero-wrap">
+    <img class="hero"
+         src="https://blueskyhotel.com.np/images/blue-sky/hotel.jpg"
+         alt="Blue Sky Hotel exterior" loading="eager" />
+
+    <button class="share-btn" onclick="shareCard()" aria-label="Share this page">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+      </svg>
+    </button>
+  </div>
 
   <!-- Logo -->
   <div class="logo-wrap">
     <div class="logo-bubble">
-      <!-- Sky icon placeholder – replace with actual logo if available -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" style="width:100%;height:100%;background:linear-gradient(160deg,#4a9eca,#1a6a9a)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"
+           style="width:100%;height:100%;background:linear-gradient(160deg,#4a9eca,#1a6a9a)">
         <text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle"
               font-family="serif" font-size="32" fill="white">🏨</text>
       </svg>
@@ -298,7 +276,7 @@
 
   <div class="divider"></div>
 
-  <!-- Address / phone chips -->
+  <!-- Address + clickable phone -->
   <div class="info">
     <div class="info-pill">
       <span class="icon">
@@ -314,8 +292,31 @@
           <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
         </svg>
       </span>
-      (+977) 9856045222
+      <a href="tel:+9779856045222">(+977) 9856045222</a>
     </div>
+  </div>
+
+  <!-- ★ Google Review ── -->
+  <div class="review-block">
+    <div class="stars" aria-label="5 stars">
+      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+    </div>
+    <a class="google-review-btn"
+       href="https://search.google.com/local/writereview?placeid=ChIJ9cjHfQANlTkRoH-RVUKq8F8"
+       target="_blank" rel="noopener">
+      <!-- Google G (official multicolour) -->
+      <svg class="google-g" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      Review us on Google
+    </a>
   </div>
 
   <!-- Links -->
@@ -360,7 +361,9 @@
       <span class="btn-arrow">›</span>
     </a>
 
-    <a class="link-btn btn-facebook" href="https://www.facebook.com/profile.php?id=100063654335809" target="_blank" rel="noopener">
+    <a class="link-btn btn-facebook"
+       href="https://www.facebook.com/profile.php?id=100063654335809"
+       target="_blank" rel="noopener">
       <span class="btn-icon">
         <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -373,28 +376,20 @@
       <span class="btn-arrow">›</span>
     </a>
 
-    <a class="link-btn btn-maps" href="https://www.google.com/maps/search/?api=1&query=Blue+Sky+Hotel+Syange+Lamjung" target="_blank" rel="noopener">
+    <a class="link-btn btn-maps"
+       href="https://www.google.com/maps/search/?api=1&query=Blue+Sky+Hotel+Syange+Lamjung"
+       target="_blank" rel="noopener">
       <span class="btn-icon">
-        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
+        <!-- Google Maps pin logo -->
+        <svg viewBox="0 0 48 60" xmlns="http://www.w3.org/2000/svg" width="26" height="32">
+          <path fill="#4285F4" d="M24 0C10.745 0 0 10.745 0 24c0 17.12 21.6 35.04 22.5 35.82a2 2 0 002.998 0C26.4 59.04 48 41.12 48 24 48 10.745 37.255 0 24 0z"/>
+          <circle fill="white" cx="24" cy="24" r="10"/>
+          <circle fill="#4285F4" cx="24" cy="24" r="6"/>
         </svg>
       </span>
       <span class="btn-text">
         <span>Find Us on Map</span>
         <span class="sub">Syange, Lamjung</span>
-      </span>
-      <span class="btn-arrow">›</span>
-    </a>
-
-    <a class="link-btn btn-phone" href="tel:+9779856045222">
-      <span class="btn-icon">
-        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
-        </svg>
-      </span>
-      <span class="btn-text">
-        <span>Call Us</span>
-        <span class="sub">(+977) 9856045222</span>
       </span>
       <span class="btn-arrow">›</span>
     </a>
@@ -414,8 +409,35 @@
 
   </div>
 
-  <div class="footer">© 2024 Blue Sky Hotel · Syange, Lamjung, Nepal</div>
+  <div class="footer">© 2025 Blue Sky Hotel · Syange, Lamjung, Nepal</div>
 </div>
+
+<script>
+  async function shareCard() {
+    const shareData = {
+      title: 'Blue Sky Hotel',
+      text: 'A Best Place To Stay – Syange, Lamjung, Nepal',
+      url: window.location.href
+    };
+    if (navigator.share) {
+      try { await navigator.share(shareData); } catch (_) {}
+    } else {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('Link copied to clipboard!');
+      } catch (_) {
+        showToast('Copy the URL from your address bar');
+      }
+    }
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+</script>
 
 </body>
 </html>
